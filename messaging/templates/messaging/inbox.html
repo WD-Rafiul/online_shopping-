@@ -1,0 +1,28 @@
+{% extends 'mainapp/base.html' %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block content %}
+<h1 class="m-6 text-3xl text-center">Inbox</h1>
+
+<div class="w-2/3 text-center">
+    {% for messaging in conversations %}
+    <a class="" href="{% url 'messaging:detail' messaging.id %}">
+        <div class="p-6 flex bg-gray-100 rounded-xl">
+            <div class="pr-6">
+                <img src="{{ messaging.item.image.url }}" class="w-20 rounded-xl">
+            </div>
+
+            <div>
+                {% for member in messaging.members.all %}
+                {% if member != request.user %}
+                <p class="mb-4"><strong>{{ member.username }}</strong> | {{ messaging.modified_at }}</p>
+                <p>{{ messaging.item.Name }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

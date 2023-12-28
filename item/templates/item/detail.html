@@ -1,0 +1,56 @@
+{% extends 'mainapp/base.html' %}
+{% block title %} {{item.Name}}{% endblock %}
+
+{% block content%}
+
+<div class="grid grid-cols-5 gap-5 bg-gray-100">
+    <div class="col-span-3 rounded">
+        <img class="w-1/2" src="{{  item.image.url  }}" alt="">
+    </div>
+    <div class="col-span-2 p-5 bg-teal-200 rounded-xl">
+        <h1 class="mb-5 text-3xl"> <strong class="font-semibold">{{ item.Name }}</strong></h1>
+        <p class="text-xl">Price: {{ item.price }}</p>
+
+        <p><strong>Product Details:</strong><br>
+            <span class="">{{ item.description }}</span>
+        </p>
+
+        {% if request.user == item.created_by %}
+        <div class="mt-5 grid grid-cols-5 gap-5">
+            <a href="{% url 'item:edit' item.id %}"
+            class="bg-teal-400 text-slate-100 py-2 px-3 rounded-md hover:bg-teal-700">Edit</a>
+
+            <a href="{% url 'item:delete' item.id %}"
+            class="bg-red-300 text-slate-100 py-2 px-3 rounded-md hover:bg-red-700"><span class="material-symbols-outlined">delete</span>Delete</a>
+        </div>
+
+        {% else %}
+        <p class="">Vendor: {{ item.created_by.username }}</p>
+        <a href="{% url 'messaging:new' item.id %}"
+        class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact with vendor</a>
+        {% endif %}
+
+    </div>
+    
+</div>
+<!-- Related items -->
+
+<div class="mt-10 bg-gray-200">
+    <h2 class="text-2xl text-center">Related items</h2>
+    <div>
+        {% for item in related_items %}
+        <div class="bg-gray-300 w-76 rounded-2xl">
+            <a href="{%url 'item:detail' item.id%}">
+                <img src="{{ item.image.url }}" alt="">
+                <div>
+                    <h2>{{item.Name}}</h2>
+                    <p>{{item.price}}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

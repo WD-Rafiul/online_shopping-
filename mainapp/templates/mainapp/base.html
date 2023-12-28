@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Online shop {% block title%} {% endblock%}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body >
+    <!-- top nav -->
+    <nav class="px-10 py-5 border-solid border-2 border-slate-400  flex item-center justify-between">
+    <a class="text-xl " href="/">Online Shop</a>
+    
+    
+
+    <div class="text-right border-2 border-solid rounded-md">
+        <form class="" method="get" action="{% url 'item:items' %}">
+            <input class=" py-2 rounded-md" name="query" type="text" value="{{ query }}" placeholder=" Search item">
+            <button class="px-2 py-1 bg-teal-400 text-white rounded-md"><span class="material-symbols-outlined">search</span></button>
+        </form>
+    </div>
+
+    <div class="gap-x-5 flex justify-between">
+        <a class="px-2 py-2 rounded-md hover:bg-teal-200"
+        href="{% url 'item:add' %}">+items</a>
+
+        <a class="bg-teal-300 px-5 py-2 rounded-md hover:bg-teal-600"
+        href="{% url 'item:items' %}">Filter</a>
+
+        {% if request.user.is_authenticated %}
+        <a class="bg-teal-400 text-slate-100 px-5 py-2 rounded-md hover:bg-teal-700"
+        href="{% url 'messaging:inbox' %}">Messages</a>
+
+        <a class="bg-teal-400 text-slate-100 px-5 py-2 rounded-md hover:bg-teal-700"
+        href="{% url 'deshboard:index' %}">goto Daseboard</a>
+
+        <a class="bg-red-300 text-slate-100 px-5 py-2 rounded-md hover:bg-red-700"
+        href="{% url 'mainapp:logout' %}">Log out</a>
+        
+        <h5 class="px-5 py-2 border-2 rounded-xl">Log in by: {{request.user}} </h5>
+
+        {% else %}
+        <a class="bg-teal-400 text-slate-100 px-5 py-2 rounded-md hover:bg-teal-700"
+        href="{% url 'mainapp:signin' %}">Log in</a>
+
+        <a class="bg-red-300 text-slate-100 px-5 py-2 rounded-md hover:bg-red-500"
+        href="{% url 'mainapp:signup' %}">Sign up</a>
+
+        {%endif%}
+    </div>
+</nav>
+{% block content%}
+
+{% endblock %}
+</body>
+</html>

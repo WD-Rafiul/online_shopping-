@@ -1,0 +1,44 @@
+{% extends 'mainapp/base.html' %}
+{% block title %}/ Filter item{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-5 gap-4">
+    <!-- left nav ber -->
+    <div class="grid-span-1">
+        <p class="font-semibold text-center text-xl ">Category</p>
+        <ul class="bg-gray-100">
+            {% for category in categories %}
+            <li class="px-5 py-2" {% if category.id == category_id %} {% endif %}>
+                <a class="text-xl hover:px-5 hover:py-2 hover:bg-teal-300 rounded-r-2xl focus:active"
+                href="{% url 'item:items' %}?category={{category.id}}">{{category.Name}}</a>
+            </li>
+        {% endfor %}
+        </ul>
+        <!-- <form method="get" action="{% url 'item:items' %}">
+            <input name="query" type="text" value="{{ query }}" placeholder="Search product by name or description....">
+            <button class="px-2 py-4 mt-2 bg-teal-400 text-white rounded-xl">Search Product</button>
+        </form> -->
+
+
+
+    </div>
+
+    <div class=" grid col-span-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 ">
+        {% for item in items %}
+        <div class="mt-5">
+            <a href="{%url 'item:detail' item.id %}">
+                <div class="bg-gray-300 w-76 h-64 rounded-2xl">
+                    <img class="w-full h-56 rounded-t-2xl" src="{{ item.image.url}}" alt="">
+                    <div>
+                        <h2 class="text-center text-xl">{{item.Name}} : {{ item.price}}</h2>
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+        {% endfor %}
+    </div>
+     
+</div>
+
+{% endblock%}

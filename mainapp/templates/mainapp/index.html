@@ -1,0 +1,39 @@
+{% extends 'mainapp/base.html' %}
+{% block title %} {% endblock %}
+{% block content %}
+
+
+<!-- here is the item  -->
+<div class="px-5 py-12 bg-gray-200 ml-56">
+    <h1 class="mb-5 text-2xl text-center">New Products</h1>
+    <div class=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 ">
+        {% for item in itemss %}
+        <div>
+            <a href="{%url 'item:detail' item.id %}">
+                <div class="bg-gray-300 w-76 rounded-2xl">
+                    <img class="w-76 h-64 rounded-t-2xl" src="{{ item.image.url}}" alt="">
+                    <div>
+                        <h2 class="text-center text-xl">{{item.Name}} : {{ item.price}}</h2>
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Categoris  -->
+<div class="mt-1 px-5 pt-3 bg-gray-100 fixed w-56 h-screen top-20">
+    <h1 class="mb-5 text-2xl text-center">New Products</h1>
+    <div class="gap-5">
+        {% for prod_category in categoriess %}
+        <div class="py-2">
+            <h2 class=" text-2xl">{{prod_category.Name}} : {{prod_category.items.count}}</h2><!-- this item is models.py >Item > related_name= "items" -->
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
