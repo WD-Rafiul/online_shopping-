@@ -6,7 +6,7 @@
 <!-- here is the item  -->
 <div class="px-5 py-12 bg-gray-200 ml-56">
     <h1 class="mb-5 text-2xl text-center">New Products</h1>
-    <div class=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 ">
+    <div class=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 ">
         {% for item in itemss %}
         <div>
             <a href="{%url 'item:detail' item.id %}">
